@@ -241,7 +241,7 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: 4
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -249,17 +249,25 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_JoinAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
-      m_Name: 
+      m_Name: Join
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 
+      m_Id: 87f0d105-19be-476a-8624-c0fbfd6f4e10
       m_Processors: 
       m_Interactions: 
-      m_SingletonActionBindings: []
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: d7a74cce-2f12-47b0-b540-445e61749172
+        m_Path: <Gamepad>/buttonSouth
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 8223112538248360043, guid: b5e3e77f043b9554bb6eb3f08f2bbacb, type: 3}
   m_PlayerPrefab: {fileID: 5015368351308177800, guid: ad970c221552358419d2dd3bd7112280, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0

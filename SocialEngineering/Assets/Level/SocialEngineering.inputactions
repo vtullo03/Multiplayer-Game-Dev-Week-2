@@ -42,7 +42,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
