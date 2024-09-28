@@ -9,6 +9,8 @@ public class SpriteManager : MonoBehaviour
 {
     public Sprite[] Sprites;
     public Sprite Mouse;
+    public Sprite HeartFull;
+    public Sprite HeartEmpty;
     public Image CharUI;
     private List<GameObject> players = new List<GameObject>();
 
@@ -20,6 +22,7 @@ public class SpriteManager : MonoBehaviour
     private List<GameObject> redPlayers = new List<GameObject>();
     private int blueUIXPos = -513;
     private int[] redUIXPos = { 50, 325 };
+
     /**
     * Keeps track of players and sets their character protraits
     * 
@@ -44,6 +47,7 @@ public class SpriteManager : MonoBehaviour
     {
         GameObject canvas = GameObject.Find("Canvas");
         Image protrait = Instantiate(CharUI);
+        player.GetComponent<PlayerInfo>().SetUI(protrait);
         protrait.transform.SetParent(canvas.transform, false);
         protrait.GetComponent<RectTransform>().anchoredPosition = location;
         protrait.sprite = player.GetComponent<PlayerInfo>().GetProtrait();
@@ -90,6 +94,29 @@ public class SpriteManager : MonoBehaviour
     }
 
     /**
+    * Display hearts on screen according to the amount of health each player has
+    * 
+    * @param void
+    * @return void
+    */
+    void UpdateHearts()
+    {
+        for (int i = 0; i < players.Count; ++i)
+        {
+            PlayerInfo playerInfo = players[i].GetComponent<PlayerInfo>();
+            int playerHealth = playerInfo.GetHealth();
+            for (int j = 0; j < playerHealth; ++j)
+            {
+                playerInfo.GetUI().transform.GetChild(j).GetComponent<Image>().sprite = HeartFull;
+            }
+            for (int k = playerHealth; k < 3;  ++k)
+            {
+                playerInfo.GetUI().transform.GetChild(k).GetComponent<Image>().sprite = HeartEmpty;
+            }
+        }
+    }
+
+    /**
     * Check if in the main game and make all UI changes needed
     * 
     * @param void
@@ -105,6 +132,10 @@ public class SpriteManager : MonoBehaviour
                 SpawnAllProtraits();
                 TurnIntoMice();
                 spawnedUI = true;
+            }
+            if (spawnedUI)
+            {
+                UpdateHearts();
             }
         }
     }
