@@ -12,6 +12,9 @@ public class PlayerManager : MonoBehaviour
     private List<GameObject> redTeam = new List<GameObject>();
     GameObject blueTeam;
 
+    private Vector3[] redTeamPositions = { new Vector3(8f, 2.0f, 0.0f), new Vector3(13.0f, 2.0f, 0.0f) };
+    private Vector3 blueTeamPosition = new Vector3(-1.0f, 2.0f, 0.0f);
+
     /* messy solution but can be optimized later -- OPTIMIZE THIS LATER */
     /* sprite references for player health */
     public Image heartSpriteFull;
@@ -79,6 +82,7 @@ public class PlayerManager : MonoBehaviour
         /* Add remaining to blue -- one player */
         blueTeam = playerPool[0].gameObject;
         playerPool.Remove(playerPool[0]);
+        MoveAllPlayers();
     }
 
     /**
@@ -92,6 +96,23 @@ public class PlayerManager : MonoBehaviour
         redTeam.Clear();
         blueTeam = null;
         playerPool = players;
+    }
+
+    /**
+    * Move all the players to their respective positions for their teams
+    * 
+    * @param void
+    * @return void
+    */
+    void MoveAllPlayers()
+    {
+        for (int i = 0; i < redTeam.Count; i++) 
+        {
+            redTeam[i].transform.position = redTeamPositions[i];
+            Debug.Log(redTeam[i].transform.position);
+        }
+        blueTeam.transform.position = blueTeamPosition;
+        Debug.Log(blueTeam.transform.position);
     }
 
     /* Getter functions for private variables needed by other scripts */

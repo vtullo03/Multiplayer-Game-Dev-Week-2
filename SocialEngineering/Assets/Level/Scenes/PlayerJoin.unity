@@ -313,6 +313,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1000587559c775d4eb76ac9e450bcfb3, type: 3}
   - {fileID: 21300000, guid: cc5ffaf94d3e52248b0184c41b4079eb, type: 3}
   Mouse: {fileID: 21300000, guid: 019b80fccc2df314fbddbe7ab14d7151, type: 3}
+  HeartFull: {fileID: 21300000, guid: 00d6d841a2608a44ea369817e897475b, type: 3}
+  HeartEmpty: {fileID: 21300000, guid: 2c30d39f722225b45a426d0b590d687a, type: 3}
   CharUI: {fileID: 3651152908162098646, guid: 709df1d9876873f4a99dea90b5701861, type: 3}
 --- !u!114 &1582366756
 MonoBehaviour:
