@@ -31,6 +31,7 @@ public class RedGameLogic : MonoBehaviour
             gameTimer.ResetTimer();
             playerManager.ResetTeams();
             spriteManager.RespawnProtraits();
+            StartCoroutine(GameObject.Find("RedCamera").GetComponent<CameraShake>().Shake(0.15f, 0.4f));
         }
     }
 
@@ -117,6 +118,7 @@ public class RedGameLogic : MonoBehaviour
                 {
                     CreatePuzzle();
                     playerManager.GetBlueTeam().GetComponent<PlayerInfo>().LoseHealth();
+                    StartCoroutine(GameObject.Find("BlueCamera").GetComponent<CameraShake>().Shake(0.15f, 0.4f));
                     gameTimer.ResetTimer();
                     playerManager.ResetTeams();
                     spriteManager.RespawnProtraits();

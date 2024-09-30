@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
-            if (!pickedStartingTeams) 
+            if (!pickedStartingTeams)
             {
                 PickTeam();
                 pickedStartingTeams = true;
