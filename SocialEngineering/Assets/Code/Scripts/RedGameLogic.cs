@@ -27,7 +27,6 @@ public class RedGameLogic : MonoBehaviour
             for (int i = 0; i < redTeam.Count; i++)
             {
                 redTeam[i].GetComponent<PlayerInfo>().LoseHealth();
-                redTeam[i].GetComponent<RumbleManager>().RumblePulse(0.25f, 0.75f, 1.0f);
             }
             gameTimer.ResetTimer();
             playerManager.ResetTeams();
@@ -118,7 +117,6 @@ public class RedGameLogic : MonoBehaviour
                 {
                     CreatePuzzle();
                     playerManager.GetBlueTeam().GetComponent<PlayerInfo>().LoseHealth();
-                    playerManager.GetBlueTeam().GetComponent<RumbleManager>().RumblePulse(0.25f, 0.75f, 1.0f);
                     gameTimer.ResetTimer();
                     playerManager.ResetTeams();
                     spriteManager.RespawnProtraits();

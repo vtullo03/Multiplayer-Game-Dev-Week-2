@@ -16,15 +16,13 @@ public class PlayerManager : MonoBehaviour
     private Vector3[] redTeamPositions = { new Vector3(8f, 2.0f, 0.0f), new Vector3(13.0f, 2.0f, 0.0f) };
     private Vector3 blueTeamPosition = new Vector3(-1.0f, 2.0f, 0.0f);
 
-    /* messy solution but can be optimized later -- OPTIMIZE THIS LATER */
-    /* sprite references for player health */
-    public Image heartSpriteFull;
-    public Image heartSpriteEmpty;
-
     private bool pickedStartingTeams = false;
     private bool gameLoaded = false;
 
     private SpriteManager spriteManager;
+    private AudioSource audioSource;
+    public AudioClip JoinNoise;
+    private float volume = 0.75f;
 
     void LoadWin()
     {
@@ -35,6 +33,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         spriteManager = GetComponent<SpriteManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     /**
@@ -70,6 +69,11 @@ public class PlayerManager : MonoBehaviour
     public void OnPlayerJoined(PlayerInput input)
     {
         players.Add(input);
+        audioSource.PlayOneShot(JoinNoise, volume);
+        for (int i = 0; i < players.Count; i++) 
+        {
+            players[i].gameObject.GetComponent<RumbleManager>().RumblePulse(0.25f, 0.75f, 1.0f);
+        }
     }
 
     /**

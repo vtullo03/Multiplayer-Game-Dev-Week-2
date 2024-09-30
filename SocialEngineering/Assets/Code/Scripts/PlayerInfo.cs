@@ -10,7 +10,6 @@ public class PlayerInfo : MonoBehaviour
     private Image currUI;
 
     public void SetHealth(int h) { health = h; }
-    public void LoseHealth() { health--; }
     public void SetProtrait(Sprite p) { protrait = p; }
     public void SetUI(Image image) { currUI = image; }
 
@@ -18,5 +17,23 @@ public class PlayerInfo : MonoBehaviour
     public Sprite GetProtrait() { return protrait; }
     public Image GetUI() { return currUI; }
 
+    private RumbleManager rumbleManager;
+    private AudioSource audioSource;
+    public AudioClip HurtSound;
+    private float volume = 1.0f;
+
     public void DeleteProtrait() { Destroy(currUI.gameObject); }
+
+    public void LoseHealth()
+    {
+        rumbleManager.RumblePulse(0.25f, 0.75f, 1.0f);
+        audioSource.PlayOneShot(HurtSound, volume);
+        health--;
+    }
+
+    void Start()
+    {
+        rumbleManager = GetComponent<RumbleManager>();
+        audioSource = GetComponent<AudioSource>();
+    }
 }
