@@ -103,6 +103,7 @@ public class SpriteManager : MonoBehaviour
     */
     void UpdateHearts()
     {
+        Debug.Log(players.Count);
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerInfo playerInfo = players[i].GetComponent<PlayerInfo>();
@@ -128,6 +129,11 @@ public class SpriteManager : MonoBehaviour
     {
         for(int i = 0; i < players.Count; ++i) players[i].GetComponent<PlayerInfo>().DeleteProtrait();
         SpawnAllProtraits();
+    }
+
+    public void RemovePlayer(PlayerInput player)
+    {
+        players.Remove(player.gameObject);
     }
 
     /**

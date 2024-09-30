@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Controls controls;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private PlayerInfo playerInfo;
 
     private Vector2 velocity;
     private float speed = 5f;
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     {
         controls = GetComponent<Controls>();
         rb = GetComponent<Rigidbody2D>();
+        playerInfo = GetComponent<PlayerInfo>();
+
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
@@ -33,5 +36,14 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
         if (SceneManager.GetActiveScene().name == "MainGame") rb.gravityScale = 0;
         else rb.gravityScale = 12;
+    }
+
+    void Update()
+    {
+        if (playerInfo.GetHealth() == 0)
+        {
+            transform.position = new Vector3(-20.0f, -20.0f, 0.0f);
+            this.enabled = false;
+        }
     }
 }

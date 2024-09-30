@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -21,6 +22,13 @@ public class PlayerManager : MonoBehaviour
     public Image heartSpriteEmpty;
 
     private bool pickedStartingTeams = false;
+
+    private SpriteManager spriteManager;
+
+    void Start()
+    {
+        spriteManager = GetComponent<SpriteManager>();
+    }
 
     /**
     * Add all players in game to the list of possible team candidates
@@ -75,9 +83,22 @@ public class PlayerManager : MonoBehaviour
     */
     void PickTeam()
     {
+        /* Check for dead players and remove them */
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].gameObject.GetComponent<PlayerInfo>().GetHealth() == 0)
+            {
+                Debug.Log("ge");
+                spriteManager.RemovePlayer(players[i]);
+                players.Remove(players[i]);
+                playerPool.RemoveAt(playerPool.Count - 1);
+                redTeamPositions = redTeamPositions.Take(redTeamPositions.Length - 1).ToArray();
+            }
+        }
+
         /* Pick all for red team */
         MoveRandomPlayer(redTeam);
-        MoveRandomPlayer(redTeam);
+        if(players.Count > 2) MoveRandomPlayer(redTeam);
         /* Add remaining to blue -- one player */
         blueTeam = players[playerPool[0]].gameObject;
         playerPool.Clear();
