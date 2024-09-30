@@ -22,8 +22,15 @@ public class PlayerManager : MonoBehaviour
     public Image heartSpriteEmpty;
 
     private bool pickedStartingTeams = false;
+    private bool gameLoaded = false;
 
     private SpriteManager spriteManager;
+
+    void LoadWin()
+    {
+        if (gameLoaded) return;
+        SceneManager.LoadScene("EpicWin");
+    }
 
     void Start()
     {
@@ -44,6 +51,12 @@ public class PlayerManager : MonoBehaviour
             {
                 PickTeam();
                 pickedStartingTeams = true;
+            }
+
+            if (players.Count == 1)
+            {
+                LoadWin();
+                gameLoaded = true;
             }
         }
     }

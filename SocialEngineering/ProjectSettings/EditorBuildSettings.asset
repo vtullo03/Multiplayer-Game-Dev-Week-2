@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/Scenes/MainGame.unity
     guid: 248b43b8f3eab6d488e526c3ec4f837c
+  - enabled: 1
+    path: Assets/Level/Scenes/EpicWin.unity
+    guid: a51e4f617bd4da44c85846aaff28c770
   m_configObjects: {}

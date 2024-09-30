@@ -167,6 +167,8 @@ public class BlueGameLogic : MonoBehaviour
         if (puzzleCreated && cards.Count == 0)
         {
             Debug.Log("shuffle red!");
+            GetComponent<RedGameLogic>().ClearPuzzle();
+            GetComponent<RedGameLogic>().CreatePuzzle();
             puzzleCreated = false;
             CreatePuzzle();
         }

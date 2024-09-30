@@ -145,7 +145,7 @@ public class SpriteManager : MonoBehaviour
     void Update()
     {
         if (SceneManager.GetActiveScene().name == "MainGame")
-        { 
+        {
             if (!spawnedUI && playerManager.GetStartingStatus())
             {
                 SpawnAllProtraits();
@@ -156,6 +156,11 @@ public class SpriteManager : MonoBehaviour
             {
                 UpdateHearts();
             }
+        }
+        if (SceneManager.GetActiveScene().name == "EpicWin")
+        {
+            GameObject canvas = GameObject.Find("Canvas");
+            canvas.transform.GetChild(0).GetComponent<Image>().sprite = players[0].GetComponent<PlayerInfo>().GetProtrait();
         }
     }
 

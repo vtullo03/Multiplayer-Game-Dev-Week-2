@@ -75,6 +75,15 @@ public class RedGameLogic : MonoBehaviour
         }
     }
 
+    public void ClearPuzzle()
+    {
+        foreach (GameObject obj in letters)
+        {
+            Destroy(obj);
+        }
+        letters.Clear();
+    }
+
     public void CreatePuzzle()
     {
         /* Reset these if not already */
@@ -109,6 +118,7 @@ public class RedGameLogic : MonoBehaviour
                 {
                     CreatePuzzle();
                     playerManager.GetBlueTeam().GetComponent<PlayerInfo>().LoseHealth();
+                    playerManager.GetBlueTeam().GetComponent<RumbleManager>().RumblePulse(0.25f, 0.75f, 1.0f);
                     gameTimer.ResetTimer();
                     playerManager.ResetTeams();
                     spriteManager.RespawnProtraits();
