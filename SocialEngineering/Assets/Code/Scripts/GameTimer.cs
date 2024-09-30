@@ -7,7 +7,7 @@ public class GameTimer : MonoBehaviour
 {
     private Image circle;
 
-    private float duration = 60f;
+    private float duration = 5f;
     private float remainingDuration;
 
     private bool timerDone;
@@ -21,6 +21,7 @@ public class GameTimer : MonoBehaviour
     public void ResetTimer()
     {
         timerDone = false;
+        circle.fillAmount = 1;
         remainingDuration = duration;
         StartCoroutine(UpdateTimer());
     }

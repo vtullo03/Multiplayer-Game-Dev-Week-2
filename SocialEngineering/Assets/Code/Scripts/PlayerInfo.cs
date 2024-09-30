@@ -10,10 +10,13 @@ public class PlayerInfo : MonoBehaviour
     private Image currUI;
 
     public void SetHealth(int h) { health = h; }
+    public void LoseHealth() { health--; }
     public void SetProtrait(Sprite p) { protrait = p; }
     public void SetUI(Image image) { currUI = image; }
 
     public int GetHealth() { return health; } 
     public Sprite GetProtrait() { return protrait; }
     public Image GetUI() { return currUI; }
+
+    public void DeleteProtrait() { Destroy(currUI.gameObject); }
 }

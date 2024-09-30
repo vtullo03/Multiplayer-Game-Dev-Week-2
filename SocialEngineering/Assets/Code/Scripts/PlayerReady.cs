@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerReady : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class PlayerReady : MonoBehaviour
 
     void Update()
     {
-        if (controls.ActionTriggered())
+        if (controls.ActionTriggered() && SceneManager.GetActiveScene().name == "PlayerJoin")
         {
             isReady = true;
             readySprite.SetActive(true);

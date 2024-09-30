@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     private List<PlayerInput> players = new List<PlayerInput>();
-    private List<PlayerInput> playerPool = new List<PlayerInput>();
+    public List<int> playerPool = new List<int>() { 0, 1, 2 };
     private List<GameObject> redTeam = new List<GameObject>();
     GameObject blueTeam;
 
@@ -34,7 +34,6 @@ public class PlayerManager : MonoBehaviour
         {
             if (!pickedStartingTeams) 
             {
-                playerPool = players;
                 PickTeam();
                 pickedStartingTeams = true;
             }
@@ -62,10 +61,10 @@ public class PlayerManager : MonoBehaviour
     {
         System.Random rng = new System.Random();
         int rngIndex = rng.Next(playerPool.Count);
-        PlayerInput randomPlayer = playerPool[rngIndex];
-        team.Add(randomPlayer.gameObject);
+        int randomPlayer = playerPool[rngIndex];
+        team.Add(players[randomPlayer].gameObject);
         playerPool.Remove(randomPlayer);
-        return randomPlayer.gameObject;
+        return players[randomPlayer].gameObject;
     }
 
     /**
@@ -80,8 +79,9 @@ public class PlayerManager : MonoBehaviour
         MoveRandomPlayer(redTeam);
         MoveRandomPlayer(redTeam);
         /* Add remaining to blue -- one player */
-        blueTeam = playerPool[0].gameObject;
-        playerPool.Remove(playerPool[0]);
+        blueTeam = players[playerPool[0]].gameObject;
+        playerPool.Clear();
+        playerPool = new List<int>() { 0, 1, 2 }; /* now that the picking is done reset pool for future use */
         MoveAllPlayers();
     }
 
@@ -91,11 +91,11 @@ public class PlayerManager : MonoBehaviour
     * @param void
     * @return void
     */
-    void ResetTeams()
+    public void ResetTeams()
     {
         redTeam.Clear();
         blueTeam = null;
-        playerPool = players;
+        PickTeam();
     }
 
     /**
@@ -106,13 +106,8 @@ public class PlayerManager : MonoBehaviour
     */
     void MoveAllPlayers()
     {
-        for (int i = 0; i < redTeam.Count; i++) 
-        {
-            redTeam[i].transform.position = redTeamPositions[i];
-            Debug.Log(redTeam[i].transform.position);
-        }
+        for (int i = 0; i < redTeam.Count; i++) redTeam[i].transform.position = redTeamPositions[i];
         blueTeam.transform.position = blueTeamPosition;
-        Debug.Log(blueTeam.transform.position);
     }
 
     /* Getter functions for private variables needed by other scripts */

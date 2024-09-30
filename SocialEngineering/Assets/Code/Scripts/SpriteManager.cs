@@ -59,7 +59,7 @@ public class SpriteManager : MonoBehaviour
     * @param void
     * @return void
     */
-    void SpawnAllProtraits()
+    private void SpawnAllProtraits()
     {
         CheckTeams();
         for (int i = 0; i < redPlayers.Count; i++) SpawnOneProtrait(new Vector3(redUIXPos[i], -184, 0), redPlayers[i]);
@@ -77,6 +77,8 @@ public class SpriteManager : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             players[i].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Mouse;
+            players[i].GetComponent<BoxCollider2D>().size = new Vector3(0.5f, 0.5f, 0.0f);
+            players[i].GetComponent<BoxCollider2D>().offset = new Vector3(0.0f, 0.0f, 0.0f);
             players[i].transform.GetChild(1).gameObject.SetActive(false);
         }
     }
@@ -117,6 +119,18 @@ public class SpriteManager : MonoBehaviour
     }
 
     /**
+    * Delete and spawn new character protraits -- likely on team switch
+    * 
+    * @param void
+    * @return void
+    */
+    public void RespawnProtraits()
+    {
+        for(int i = 0; i < players.Count; ++i) players[i].GetComponent<PlayerInfo>().DeleteProtrait();
+        SpawnAllProtraits();
+    }
+
+    /**
     * Check if in the main game and make all UI changes needed
     * 
     * @param void
@@ -126,7 +140,6 @@ public class SpriteManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "MainGame")
         { 
-            Debug.Log(playerManager.GetStartingStatus());
             if (!spawnedUI && playerManager.GetStartingStatus())
             {
                 SpawnAllProtraits();
