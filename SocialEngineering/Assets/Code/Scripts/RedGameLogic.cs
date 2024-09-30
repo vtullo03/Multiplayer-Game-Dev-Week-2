@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 
@@ -16,10 +17,7 @@ public class RedGameLogic : MonoBehaviour
     private char[] scrambledWord;
     private List<GameObject> letters = new List<GameObject>();
 
-    private float currX = 0f;
-    // private float currY = 0f;
-    // private float maxX = 15.5f;
-    private Vector3 startingPoint = new Vector3(7.5f, -1.5f, 0.0f);
+    private float[] xPositions = {7.5f, 9.5f, 11.5f, 13.5f, 15.5f};
 
     void CheckGameTimer()
     {
@@ -42,6 +40,7 @@ public class RedGameLogic : MonoBehaviour
         var lines = File.text.Split('\n');
         var randomIndex = Random.Range(0, lines.Length);
         wordToSolve = lines[randomIndex];
+        wordToSolve = new string(wordToSolve.Where(c => !char.IsWhiteSpace(c)).ToArray());
     }
 
     void ScrambleLine()
@@ -64,13 +63,13 @@ public class RedGameLogic : MonoBehaviour
 
     void DisplayScramble()
     {
+        scrambledWord = scrambledWord.Where(c => !char.IsWhiteSpace(c)).ToArray();
         for (int i = 0; i < scrambledWord.Length; i++)
         {
             Sprite currLetter = Resources.Load<Sprite>("" + char.ToUpper(scrambledWord[i]));
             GameObject l = Instantiate(Letter);
             letters.Add(l);
-            l.transform.position = startingPoint + new Vector3(currX, 0.0f, 0.0f);
-            currX += 2.0f;
+            l.transform.position = new Vector3(xPositions[i], -1.5f, 0.0f);
             l.GetComponent<SpriteRenderer>().sprite = currLetter;
             l.GetComponent<LetterLogic>().SetLetter(scrambledWord[i]);
         }
@@ -80,7 +79,6 @@ public class RedGameLogic : MonoBehaviour
     {
         /* Reset these if not already */
         CurrGuess.text = "";
-        currX = 0.0f;
         letters.Clear();
         GetRandomLine();
         ScrambleLine();
@@ -101,12 +99,10 @@ public class RedGameLogic : MonoBehaviour
     {
         if (playerManager.GetStartingStatus())
         {
-
             if (CurrGuess.text.Length == wordToSolve.Length)
             {
                 if (CurrGuess.text != wordToSolve)
                 {
-                    Debug.Log(CurrGuess.text);
                     CreatePuzzle();
                 }
                 else
